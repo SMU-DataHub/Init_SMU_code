@@ -1,10 +1,13 @@
 ---
-title: "LIve Session 2 CLT"
+title: "Live Session Question 2 CLT"
 author: "Bivin"
 date: "9/6/2018"
 output:
-  html_document:
-    df_print: paged
+  html_document: 
+    toc: yes
+    number_sections: yes
+    highlight: espresso
+    theme: spacelab
 ---
 ```{r}
  
@@ -18,19 +21,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Control Parameters
 
-From the Rmarkdown file in the Live Session 1 repository on Github, we create an R file by placing the extension *.r instead of the *.Rmd extension.  From here, we can modify and debug the assignment.  
+From the Rmarkdown file in the Live Session 1 repository on Github, we create an R file by placing the extension *.r instead of the *.Rmd extension.  From here, we can modify and debug the assignment.
+
+### UPDATE: After learning a bit more about R and Rmarkdown, the above paragraph was done out of ignorance.  
 
 Restated, the assignment is:  
-1. Adapt the code to generate a population of 10,000,000 from a chi-square distribution with 2 degrees of freedom.  This is a heavily right skewed 
-distribution.  (Hint: rchisq()) You will have to red up on this function and probably do some trial and error.  Being able to learn new functions and methods is a key skill.
+1. *Adapt the code to generate a population of 10,000,000 from a chi-square distribution with 2 degrees of freedom.  This is a heavily right skewed distribution.  (Hint: rchisq()) You will have to read up on this function and probably do some trial and error.  Being able to learn new functions and methods is a key skill.*
 
 ```{r}
-set.seed(0)
+#n1 is the number of Random values selected
 
 n1 <- 10000000
 
-#generate 10,000,000 random values that follow Chi-Square distribution with df=2
-values <- rchisq(n1, df = 2)
+#generate 10,000,000 random values that follow Chi-Square distribution with df=2 (degrees of freedom)
+
+values <- rchisq(n1, df = 2) # right skewed chi square function.  first variable is the number of values and the second is the degrees of freedom.
 
 #view first 5 values
 head(values)
@@ -62,14 +67,14 @@ paste("The difference between the mean x and the standard deviation y is,", z)
 ```{r}
 n2 <- 50 # sample size per sample for 1st distribution
 simulations <- 10000 #number of samples and thus number of xbars we will generate.  
-mu <- 0 # mean parameter for use with normal distribuions
-sigma <- 1 # standard deviation parameter for use with normal distributions
+mu <- x # mean parameter for use with normal distributions, taken from the chi-square results above.  
+sigma <- y # standard deviation parameter for use with normal distributions, taken from the chi-square results above.  
 
 xbar_holder1 <- numeric(simulations) # This will hold all the sample means for the first distribution.
 
 for (i in 1:simulations)
 { 
- sample1 <- rnorm(n2,mean = mu, sd = sigma)
+ sample1 <- rnorm(n2,mean = mu, sd = sigma) #To insure that the histogram functions properly, the mean of this sample1 is the mean of the 10,000,000 sample chi-square, above.  The standard deviation is likewise taken from above.  
 
 xbar1 <- mean(sample1)
 xbar_holder1[i] <- xbar1
@@ -78,7 +83,7 @@ xbar_holder1[i] <- xbar1
 hist(xbar_holder1, col = "blue", main = paste("Distribution of the sample mean: n = ", n2), xlab = "Dist 1 Sample Means", xlim = c(-4,4))
 
 summary(xbar_holder1) #5 number summary and the mean
-sd(xbar_holder1) # standard deviation of dstribuion 1
+sd(xbar_holder1) # standard deviation of dstribution 1
 
 paste(summary(xbar_holder1))
 paste(sd(xbar_holder1))
