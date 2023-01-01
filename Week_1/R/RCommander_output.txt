@@ -1,0 +1,15 @@
+
+> ---
++ title: "LIve Session 2 CLT"
+
+> author: "Bivin"
+
+> date: "9/6/2018"
+
+> output:
++   html_document:
++     df_print: paged
+
+> ---
++ 
+
